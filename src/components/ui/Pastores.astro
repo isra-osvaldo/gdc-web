@@ -23,9 +23,20 @@
 <section
   class="pastores relative flex flex-col md:flex-row justify-center items-center max-w-screen-4xl mx-auto gap-5 p-4 md:p-12"
 >
+  <div class="custom-shape-divider-bottom-1773698040 hidden md:block">
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"
+      ></path>
+    </svg>
+  </div>
   <!-- Imagen -->
   <img
-    src="/pastores-jose-jesa.png"
+    src="/pastores.png"
     alt="Pastores"
     class="w-11/12 sm:w-3/4 md:w-1/2 lg:w-lg mt-10 rounded-2xl object-cover"
     data-aos="fade-right"
@@ -36,15 +47,15 @@
     class="w-full md:w-1/2 p-4 md:p-8 rounded-md text-justify md:text-left"
     data-aos="fade-left"
   >
-    <h2 class="text-3xl sm:text-4xl font-extrabold uppercase md:w-full mb-4">
+    <h2 class="text-3xl sm:text-4xl font-extrabold uppercase md:w-full mb-4 text-gray-100">
       Nossos Pastores
     </h2>
-    <p class="mt-2 text-base sm:text-lg leading-relaxed">
+    <p class="mt-2 text-base sm:text-lg leading-relaxed text-gray-50">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque odio aut
       expedita hic libero labore dolorem, vero adipisci ullam aspernatur porro,
       quia dolore ab excepturi temporibus, esse soluta natus debitis.
     </p>
-    <p class="mt-2 text-base sm:text-lg leading-relaxed">
+    <p class="mt-2 text-base sm:text-lg leading-relaxed text-gray-50">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit vel quod
       rem ut mollitia debitis, ullam quis corrupti quaerat eaque eos voluptate
       repudiandae minus sit suscipit ex laboriosam alias consectetur.
@@ -58,9 +69,48 @@
   }
 
   .pastores {
-    background-image: url('/bg-gray.jpg');
+    background-image: linear-gradient(to right top, #0f172a, #18192d, #211a2f, #291b30, #311d30, #391f31, #412132, #492432, #542833, #5e2d34, #673233, #703832);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
   }
+
+  .custom-shape-divider-bottom-1773698040 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1773698040 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-bottom-1773698040 .shape-fill {
+    fill: #FFFFFF;
+}
 </style>
+
+<script>
+  function updateAOSAnimations() {
+    const isMobile = window.innerWidth < 768
+
+    const img = document.querySelector('[data-aos="fade-right"]')
+    const text = document.querySelector('[data-aos="fade-left"]')
+
+    if (isMobile) {
+      img?.setAttribute("data-aos", "fade-up")
+      text?.setAttribute("data-aos", "fade-zoom-in")
+    }
+  }
+
+  updateAOSAnimations()
+
+  window.addEventListener("resize", updateAOSAnimations)
+</script>

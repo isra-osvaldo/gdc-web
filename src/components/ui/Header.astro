@@ -3,18 +3,18 @@ import '../../styles/global.css'
 import MainNav from './MainNav.astro'
 import RedesSociales from './RedesSociales.astro'
 
-const { transparent = false } = Astro.props
+const { transparent = false, animated = false } = Astro.props
 ---
 
 <header
   id="main-header"
   data-transparent={transparent}
-    class=`fixed top-0 left-0 w-full text-white min-h-20 flex items-center justify-between px-6 md:px-16 lg:px-30 z-50 transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
+    class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 w-full text-white min-h-20 flex items-center justify-between md:justify-around px-6 md:px-16 lg:px-30 z-50 transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
 
 >
   <!-- LOGO -->
   <a href="/">
-    <img src="/logo-bola.png" class="animate-fade-in-up w-36" />
+    <img src="/logo-bola.png" class="w-36" />
   </a>
 
   <div>

@@ -7,6 +7,7 @@ const navigation = [
   { name: 'Nosso Credo', href: '/nosso-credo' },
   { name: 'Recursos', href: '/recursos' },
   { name: 'Semeadura', href: '/semeadura' },
+  { name: 'Contato', href: '/contato' },
 ]
 ---
 
@@ -21,7 +22,7 @@ const navigation = [
   >
     {
       navigation.map((item) => (
-        <li class="w-full text-center md:w-auto md:text-left animate-fade-in-up">
+        <li class="w-full text-center md:w-auto md:text-left">
           <a
             href={item.href}
             class="flex items-center justify-center w-full py-2 rounded-md
