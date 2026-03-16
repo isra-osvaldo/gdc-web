@@ -1,0 +1,42 @@
+---
+import '../../styles/global.css'
+
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Quem somos', href: '/quem-somos' },
+  { name: 'Nosso Credo', href: '/nosso-credo' },
+  { name: 'Recursos', href: '/recursos' },
+  { name: 'Semeadura', href: '/semeadura' },
+]
+---
+
+<nav class="relative w-full">
+  <ul
+    id="mobile-menu"
+    class="hidden flex-col items-center fixed top-20 left-0 w-full bg-black/90 backdrop-blur-md md:bg-transparent md:backdrop-blur-none p-6 md:static md:flex md:flex-row md:w-auto md:p-0 z-50 uppercase gap-6"
+  >
+    {
+      navigation.map((item) => (
+        <li class="w-full text-center md:w-auto md:text-left animate-fade-in-up">
+          <a
+            href={item.href}
+            class="flex items-center justify-center w-full py-2 rounded-md
+           text-white
+           hover:bg-amber-100 hover:text-black
+           md:hover:bg-transparent md:hover:text-yellow-200
+           transition-all duration-300
+           md:w-auto md:justify-start text-[12px] font-bold tracking-[1px]"
+          >
+            {item.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  a {
+    font-family: 'Montserrat', sans-serif;
+  }
+</style>

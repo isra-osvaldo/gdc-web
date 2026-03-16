@@ -1,0 +1,63 @@
+---
+import Header from "./Header.astro";
+
+
+---
+<section
+  class="relative w-full overflow-hidden flex items-center justify-center hero-section"
+>
+  <!-- <figure> <img src="/hillson-vid.gif" alt="Video" class="w-full h-screen object-cover" /> </figure> -->
+  <video
+    class="absolute top-0 left-0 w-full h-full object-cover"
+    src="/hero-video.mp4"
+    autoplay
+    muted
+    loop
+  >
+  </video>
+  <div class="absolute inset-0 bg-black/30">
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center text-white font-bold px-6"
+    >
+      <!-- <h2 class="text-xl md:text-5xl text-center px-4 text-gray-50">Igreja Geração de Conquista</h2> <h3 class="text-lg sm:text-lg md:text-xl lg:text-3xl text-amber-200 text-center px-6">Uma nova história começa aquí</h3> -->
+      <img
+        src="/logo-bola.png"
+        alt="logo"
+        class="animate-fade-in-up w-80 md:w-150"
+      />
+    </div>
+  </div>
+
+  <!-- <style>
+    h3 {
+      font-family: 'Cedarville Cursive', Courier, monospace;
+    }
+
+    .hero-section {
+      height: 100vh;
+      height: 100dvh;
+    }
+  </style> -->
+
+</section>
+
+  <style>
+    .hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh; /* "small viewport height" para mobile moderno */
+  height: 100dvh; /* fallback */
+  overflow: hidden;
+}
+
+.hero-section video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+  </style>

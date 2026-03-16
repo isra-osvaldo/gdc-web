@@ -1,0 +1,52 @@
+---
+import Footer from '../components/ui/Footer.astro'
+import Header from '../components/ui/Header.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout>
+  <Header transparent={false} />
+
+  <main>
+    <h1 class="text-4xl font-bold text-center mt-12">QUEM SOMOS</h1>
+
+    <div class="video-box">
+      <video
+        src="/video-church.mp4"
+        class="rounded-xl"
+        autoplay
+        muted
+        loop
+      >
+      </video>
+
+      <div>
+        <h2>Geração de Conquista Church</h2>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  body {
+    background-image: url('/bg-gray.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .video-box {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .video-box video {
+    width: 300px;
+    height: 400px;
+  }
+</style>

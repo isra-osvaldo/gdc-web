@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import 'tailwind-animations';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header-scrolled {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+}
