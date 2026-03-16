@@ -1,5 +1,7 @@
 ---
 import 'aos/dist/aos.css'
+
+const { hero = false} = Astro.props
 ---
 
 <!doctype html>
@@ -22,7 +24,7 @@ import 'aos/dist/aos.css'
     />
     <title>Geração de Conquista Church</title>
   </head>
-  <body>
+  <body class={hero ? '' : 'pt-20'}>
     <slot />
   </body>
 </html>
