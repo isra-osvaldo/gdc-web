@@ -13,7 +13,7 @@ import Ubicacion from '../components/ui/Ubicacion.astro'
   <HeroVideo />
   <Pastores />
   <section class="libros" data-aos="fade-zoom-in">
-    <h2 class="text-4xl font-extrabold uppercase">Adquira nossos livros</h2>
+    <h2 class="text-4xl font-extrabold uppercase text-gray-600">Adquira nossos livros</h2>
 
     <article class="libros-container">
       <div class="libro">
@@ -43,58 +43,3 @@ import Ubicacion from '../components/ui/Ubicacion.astro'
   <Footer />
 </Layout>
 
-<style>
-  .libros {
-    padding: 80px 20px;
-    text-align: center;
-    background-color: #feffff;
-  }
-
-  .libros-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    margin-top: 40px;
-    justify-items: center;
-  }
-
-  .libro {
-    width: 100%;
-    max-width: 260px;
-  }
-
-  .libro a {
-    display: block;
-  }
-
-  .libro img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    transition:
-      transform 0.35s ease,
-      box-shadow 0.35s ease;
-  }
-
-  /* Hover */
-  .libro:hover img {
-    transform: scale(1.07);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-  }
-
-  /* Tablet */
-  @media (min-width: 768px) {
-    .libros-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  /* Desktop */
-  @media (min-width: 1024px) {
-    .libros-container {
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 1000px;
-      margin: 40px auto 0;
-    }
-  }
-</style>

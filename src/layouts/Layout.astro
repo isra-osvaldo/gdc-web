@@ -85,4 +85,12 @@ const { hero = false } = Astro.props
 
   window.addEventListener('load', initHeaderScroll)
   document.addEventListener('astro:page-load', initHeaderScroll)
+
+  document.addEventListener('astro:page-load', () => {
+    const container = document.querySelector('.libros-container')
+    if (!container) return
+    container.style.display = 'none'
+    container.offsetHeight
+    container.style.display = ''
+  })
 </script>
