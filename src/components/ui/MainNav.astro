@@ -13,13 +13,15 @@ const navigation = [
 
 <nav class="relative w-full">
   <ul
-    id="mobile-menu"
-    class="hidden flex-col items-center fixed top-0 left-0 w-full
+  id="mobile-menu"
+  class="flex flex-col items-center fixed top-20 left-0 w-full
   bg-black/90 backdrop-blur-3xl
-  md:bg-transparent md:backdrop-blur-none
-  pt-24 pb-8 px-6 md:static md:flex md:flex-row md:w-auto md:p-0
-  z-[70] uppercase gap-6"
-  >
+  min-[860px]:bg-transparent min-[860px]:backdrop-blur-none
+  px-6 min-[860px]:static min-[860px]:flex min-[860px]:flex-row min-[860px]:w-auto min-[860px]:p-0
+  z-[70] uppercase gap-2
+  max-h-0 overflow-hidden transition-all duration-500 ease-in-out
+  min-[860px]:max-h-none min-[860px]:overflow-visible min-[860px]:gap-6"
+>
     {
       navigation.map((item) => (
         <li class="w-full text-center md:w-auto md:text-left">
