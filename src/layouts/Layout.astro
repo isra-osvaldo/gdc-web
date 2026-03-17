@@ -63,8 +63,37 @@ const { hero = false } = Astro.props
   document.addEventListener('astro:page-load', initAOS)
 </script>
 
-<!-- SCRIPT SCROLL -->
 <script is:inline>
+  // SPLASH
+  if (!sessionStorage.getItem('splashShown')) {
+    sessionStorage.setItem('splashShown', 'true')
+
+    const splash = document.createElement('div')
+    splash.id = 'splash'
+    splash.style.cssText =
+      'position:fixed;inset:0;z-index:999;background:black;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.5s ease;'
+    splash.innerHTML = '<img src="/logo-bola.png" style="width:160px;animation:bounce 1s infinite;" />'
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.prepend(splash)
+
+      // Forzar reflow antes de animar
+      splash.offsetHeight
+
+      // Aparecer
+      splash.style.opacity = '1'
+
+      window.addEventListener('load', () => {
+        // Esperar mínimo 2 segundos antes de desaparecer
+        setTimeout(() => {
+          splash.style.opacity = '0'
+          setTimeout(() => splash.remove(), 500)
+        }, 500)
+      })
+    })
+  }
+
+  // SCRIPT SCROLL
   function initHeaderScroll() {
     const header = document.querySelector('#main-header')
     if (!header) return
