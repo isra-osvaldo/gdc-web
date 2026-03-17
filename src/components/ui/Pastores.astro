@@ -38,16 +38,18 @@
   <img
     src="/pastores-jose-jesa.png"
     alt="Pastores"
-    class="w-11/12 sm:w-3/4 md:w-1/2 lg:w-lg mt-10 rounded-2xl object-cover"
-    data-aos="fade-right"
+    class="w-11/12 sm:w-3/4 md:w-1/2 lg:w-lg mt-10 rounded-2xl object-cover z-10" 
+    data-aos="fade-zoom-in"
   />
 
   <!-- Texto -->
   <div
     class="w-full md:w-1/2 p-4 pb-10 md:p-8 rounded-md text-justify md:text-left"
-    data-aos="fade-left"
+    data-aos="fade-zoom-in"
   >
-    <h2 class="text-3xl sm:text-4xl font-extrabold uppercase md:w-full mb-4 text-gray-100">
+    <h2
+      class="text-3xl sm:text-4xl font-extrabold uppercase md:w-full mb-4 text-gray-100"
+    >
       Nossos Pastores
     </h2>
     <p class="mt-2 text-base sm:text-md leading-relaxed text-gray-50">
@@ -69,7 +71,21 @@
   }
 
   .pastores {
-    background-image: linear-gradient(to right top, #0f172a, #18192d, #211a2f, #291b30, #311d30, #391f31, #412132, #492432, #542833, #5e2d34, #673233, #703832);
+    background-image: linear-gradient(
+      to right top,
+      #0f172a,
+      #18192d,
+      #211a2f,
+      #291b30,
+      #311d30,
+      #391f31,
+      #412132,
+      #492432,
+      #542833,
+      #5e2d34,
+      #673233,
+      #703832
+    );
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -83,34 +99,17 @@
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
-}
+  }
 
-.custom-shape-divider-bottom-1773698040 svg {
+  .custom-shape-divider-bottom-1773698040 svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
     height: 150px;
-}
-
-.custom-shape-divider-bottom-1773698040 .shape-fill {
-    fill: #FFFFFF;
-}
-</style>
-
-<script>
-  function updateAOSAnimations() {
-    const isMobile = window.innerWidth < 768
-
-    const img = document.querySelector('[data-aos="fade-right"]')
-    const text = document.querySelector('[data-aos="fade-left"]')
-
-    if (isMobile) {
-      img?.setAttribute("data-aos", "fade-up")
-      text?.setAttribute("data-aos", "fade-zoom-in")
-    }
   }
 
-  updateAOSAnimations()
+  .custom-shape-divider-bottom-1773698040 .shape-fill {
+    fill: #ffffff;
+  }
+</style>
 
-  window.addEventListener("resize", updateAOSAnimations)
-</script>
