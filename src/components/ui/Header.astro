@@ -9,11 +9,10 @@ const { transparent = false, animated = false } = Astro.props
 <header
   id="main-header"
   data-transparent={transparent}
-    class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border text-white min-h-20 flex items-center justify-between md:justify-around px-6 md:px-16 lg:px-30 z-50 transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
-
+  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border text-white min-h-20 flex items-center justify-between md:justify-around px-6 md:px-16 lg:px-30 z-[60] transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
 >
   <!-- LOGO -->
-  <a href="/">
+  <a href="/" class="relative z-[80]">
     <img src="/logo-bola.png" class="w-36" />
   </a>
 
@@ -24,7 +23,7 @@ const { transparent = false, animated = false } = Astro.props
   <!-- RIGHT SIDE -->
   <div class="flex items-center gap-6">
     <!-- MENU BUTTON (solo mobile) -->
-    <button id="menu-btn" class="md:hidden text-2xl cursor-pointer">
+    <button id="menu-btn" class="md:hidden text-2xl cursor-pointer relative z-[80]">
       <i id="menu-icon" class="fa-solid fa-bars transition-all duration-300"
       ></i>
     </button>
@@ -36,35 +35,54 @@ const { transparent = false, animated = false } = Astro.props
   </div>
 </header>
 
-<script is:inline>
-window.addEventListener('load', () => {
-  if (window.AOS) AOS.init({ once: true, duration: 800 });
-});
 
-// Solo refrescar AOS después de la navegación SPA
-document.addEventListener('astro:page-load', () => {
-  if (window.AOS) AOS.refreshHard();
-});
+<script is:inline>
+  window.addEventListener('load', () => {
+    if (window.AOS) AOS.init({ once: true, duration: 800 })
+  })
+
+  // Solo refrescar AOS después de la navegación SPA
+  document.addEventListener('astro:page-load', () => {
+    if (window.AOS) AOS.refreshHard()
+  })
 </script>
 
 <script is:inline>
 function initMobileMenu() {
   const btn = document.querySelector('#menu-btn');
   const menu = document.querySelector('#mobile-menu');
-  const icon = document.querySelector('#menu-icon');
-  if (!btn || !menu || !icon) return;
+  const header = document.querySelector('#main-header');
+  if (!btn || !menu || !header) return;
 
-  // Reset estado visual
+  // Reset estado
   menu.classList.add('hidden');
-  icon.classList.add('fa-bars');
-  icon.classList.remove('fa-xmark', 'rotate-90');
 
-  // Clonar el botón elimina todos los listeners anteriores
+  // Clonar ANTES de buscar el icon
   const newBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(newBtn, btn);
 
+  // Buscar icon DESPUÉS del clone
+  const icon = newBtn.querySelector('#menu-icon');
+  if (!icon) return;
+
+  icon.classList.add('fa-bars');
+  icon.classList.remove('fa-xmark', 'rotate-90');
+
   newBtn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
+    const willOpen = menu.classList.contains('hidden');
+
+    if (willOpen) {
+      menu.classList.remove('hidden');
+      if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
+        header.classList.add('header-scrolled');
+      }
+    } else {
+      menu.classList.add('hidden');
+      if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
+        header.classList.remove('header-scrolled');
+      }
+    }
+
     icon.classList.toggle('fa-bars');
     icon.classList.toggle('fa-xmark');
     icon.classList.toggle('rotate-90');
@@ -75,10 +93,13 @@ function initMobileMenu() {
       menu.classList.add('hidden');
       icon.classList.add('fa-bars');
       icon.classList.remove('fa-xmark', 'rotate-90');
+
+      if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
+        header.classList.remove('header-scrolled');
+      }
     });
   });
 }
 
-// Solo necesitas astro:page-load — cubre tanto la primera carga como navegaciones
 document.addEventListener('astro:page-load', initMobileMenu);
 </script>
