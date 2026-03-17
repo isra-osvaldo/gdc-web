@@ -5,7 +5,6 @@ import Header from './Header.astro'
 <section class="hero-section relative w-full overflow-hidden">
   <video
     class="absolute top-0 left-0 w-full h-full object-cover"
-    src="/hero-video-opt.mp4"
     autoplay
     muted
     loop
@@ -13,6 +12,8 @@ import Header from './Header.astro'
     poster="/hero-poster.jpg"
     preload="metadata"
   >
+    <source src="/hero-video-opt.webm" type="video/webm" />
+    <source src="/hero-video-opt-new.mp4" type="video/mp4" />
   </video>
   <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
     <img
