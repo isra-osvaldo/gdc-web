@@ -9,35 +9,45 @@ const navigation = [
   { name: 'Semeadura', href: '/semeadura' },
   { name: 'Contato', href: '/contato' },
 ]
+
+const currentPath = Astro.url.pathname
 ---
 
 <nav class="relative w-full">
   <ul
-  id="mobile-menu"
-  class="flex flex-col items-center fixed top-20 left-0 w-full
-  bg-black/90 backdrop-blur-3xl
-  min-[860px]:bg-transparent min-[860px]:backdrop-blur-none
-  px-6 min-[860px]:static min-[860px]:flex min-[860px]:flex-row min-[860px]:w-auto min-[860px]:p-0
-  z-[70] uppercase gap-2
-  max-h-0 overflow-hidden transition-all duration-500 ease-in-out
-  min-[860px]:max-h-none min-[860px]:overflow-visible min-[860px]:gap-6"
->
+    id="mobile-menu"
+    class="flex flex-col items-center fixed top-20 left-0 w-full
+    bg-black/90 backdrop-blur-3xl
+    min-[860px]:bg-transparent min-[860px]:backdrop-blur-none
+    px-6 min-[860px]:static min-[860px]:flex min-[860px]:flex-row min-[860px]:w-auto min-[860px]:p-0
+    z-[70] uppercase gap-2
+    max-h-0 overflow-hidden transition-all duration-500 ease-in-out
+    min-[860px]:max-h-none min-[860px]:overflow-visible min-[860px]:gap-6"
+  >
     {
-      navigation.map((item) => (
-        <li class="w-full text-center md:w-auto md:text-left">
-          <a
-            href={item.href}
-            class="flex items-center justify-center w-full py-2 rounded-md
-           text-white
-           hover:bg-amber-600 hover:text-black
-           md:hover:bg-transparent md:hover:text-amber-600
-           transition-all duration-300
-           md:w-auto md:justify-start text-[12px] font-bold tracking-[1px]"
-          >
-            {item.name}
-          </a>
-        </li>
-      ))
+      navigation.map((item) => {
+        const isActive = currentPath === item.href ||
+          (item.href !== '/' && currentPath.startsWith(item.href))
+
+        return (
+          <li class="w-full text-center min-[860px]:w-auto min-[860px]:text-left">
+            <a
+              href={item.href}
+              data-active={isActive ? 'true' : 'false'}
+              class={`flex items-center justify-center w-full py-2 rounded-md
+                text-white
+                hover:bg-amber-200 hover:text-black
+                min-[860px]:hover:bg-transparent min-[860px]:hover:text-amber-200
+                transition-all duration-300
+                min-[860px]:w-auto min-[860px]:justify-start text-[12px] font-bold tracking-[1px]
+                ${isActive ? 'bg-amber-200 min-[860px]:bg-transparent' : ''}
+              `}
+            >
+              {item.name}
+            </a>
+          </li>
+        )
+      })
     }
   </ul>
 </nav>
@@ -45,5 +55,16 @@ const navigation = [
 <style>
   a {
     font-family: 'Montserrat', sans-serif;
+  }
+
+  a[data-active='true'] {
+    color: black;
+  }
+
+  @media (min-width: 860px) {
+    a[data-active='true'] {
+      color: rgb(253 230 138);
+      background: transparent;
+    }
   }
 </style>

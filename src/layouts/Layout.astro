@@ -38,6 +38,15 @@ const { hero = false } = Astro.props
   }
 </style>
 
+<!-- SCROLL AL INICIO -->
+<script is:inline>
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual'
+  }
+  window.addEventListener('load', () => window.scrollTo(0, 0))
+  document.addEventListener('astro:page-load', () => window.scrollTo(0, 0))
+</script>
+
 <!-- SCRIPT AOS — cargado como módulo de cliente -->
 <script>
   import AOS from 'aos'
@@ -51,7 +60,6 @@ const { hero = false } = Astro.props
     })
   }
 
-  // Primera carga
   document.addEventListener('astro:page-load', initAOS)
 </script>
 
