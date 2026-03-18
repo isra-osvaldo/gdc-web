@@ -76,15 +76,10 @@ const { hero = false } = Astro.props
 
     document.addEventListener('DOMContentLoaded', () => {
       document.body.prepend(splash)
-
-      // Forzar reflow antes de animar
       splash.offsetHeight
-
-      // Aparecer
       splash.style.opacity = '1'
 
       window.addEventListener('load', () => {
-        // Esperar mínimo 2 segundos antes de desaparecer
         setTimeout(() => {
           splash.style.opacity = '0'
           setTimeout(() => splash.remove(), 500)
@@ -121,5 +116,12 @@ const { hero = false } = Astro.props
     container.style.display = 'none'
     container.offsetHeight
     container.style.display = ''
+  })
+
+  document.addEventListener('astro:page-load', () => {
+    const header = document.querySelector('#main-header')
+    if (!header) return
+    header.style.paddingLeft = ''
+    header.style.paddingRight = ''
   })
 </script>

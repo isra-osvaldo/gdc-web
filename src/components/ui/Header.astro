@@ -9,7 +9,7 @@ const { transparent = false, animated = false } = Astro.props
 <header
   id="main-header"
   data-transparent={transparent}
-  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border text-white min-h-20 flex items-center justify-between px-8 md:px-16 lg:px-60 z-[60] transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
+  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border text-white min-h-20 flex items-center justify-between z-[60] transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
 >
   <!-- LOGO -->
   <a href="/" class="relative z-[80]">
