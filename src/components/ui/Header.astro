@@ -3,7 +3,12 @@ import '../../styles/global.css'
 import MainNav from './MainNav.astro'
 import RedesSociales from './RedesSociales.astro'
 
-const { transparent = false, animated = false, dark = false, heroMode = false } = Astro.props
+const {
+  transparent = false,
+  animated = false,
+  dark = false,
+  heroMode = false,
+} = Astro.props
 ---
 
 <header
@@ -19,7 +24,7 @@ const { transparent = false, animated = false, dark = false, heroMode = false } 
     <img
       id="header-logo"
       src="/logo-text.png"
-      class={`w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert': ''}`}
+      class={`w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert' : ''}`}
       style={`opacity: ${heroMode ? '1' : '0'};`}
     />
     <!-- Logo completo (visible por defecto) -->
@@ -35,7 +40,7 @@ const { transparent = false, animated = false, dark = false, heroMode = false } 
 
   <!-- NAV (solo desktop) -->
   <div>
-    <MainNav dark={dark} />
+    <MainNav {dark} />
   </div>
 
   <!-- MENU BUTTON (solo mobile) -->
@@ -134,7 +139,7 @@ const { transparent = false, animated = false, dark = false, heroMode = false } 
 </script>
 
 <script is:inline data-hero-mode={heroMode}>
-  (function () {
+  ;(function () {
     const heroMode = document.currentScript?.dataset.heroMode === 'true'
 
     function initHeroLogoObserver() {
@@ -156,7 +161,7 @@ const { transparent = false, animated = false, dark = false, heroMode = false } 
             logoFull.style.opacity = '1'
           }
         },
-        { threshold: 0.1 }
+        { rootMargin: '-80px 0px 0px 0px', threshold: 0.1 },
       )
 
       observer.observe(heroLogo)
