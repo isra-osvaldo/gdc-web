@@ -3,22 +3,39 @@ import '../../styles/global.css'
 import MainNav from './MainNav.astro'
 import RedesSociales from './RedesSociales.astro'
 
-const { transparent = false, animated = false } = Astro.props
+const { transparent = false, animated = false, dark = false, heroMode = false } = Astro.props
 ---
 
 <header
   id="main-header"
   data-transparent={transparent}
-  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border text-white min-h-20 flex items-center justify-between z-[60] transition-all duration-300 ${transparent ? '' : 'header-scrolled'}`
+  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border ${dark ? 'text-black' : 'text-white'} min-h-20 flex items-center justify-between z-[60] transition-all duration-300 ${transparent ? '' : 'header-scrolled'} header-dark`
+  data-dark={dark}
+  data-scrolled="false"
 >
   <!-- LOGO -->
   <a href="/" class="relative z-[80]">
-    <img src="/logo-bola.png" class="w-36" />
+    <!-- Logo solo texto (visible si heroMode) -->
+    <img
+      id="header-logo"
+      src="/logo-text.png"
+      class={`w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert': ''}`}
+      style={`opacity: ${heroMode ? '1' : '0'};`}
+    />
+    <!-- Logo completo (visible por defecto) -->
+    <img
+      id="header-logo-full"
+      src="/logo-gdc.png"
+      class="w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500"
+      style={`opacity: ${heroMode ? '0' : '1'};`}
+    />
+    <!-- Spacer para que el <a> tenga dimensiones -->
+    <span class="block w-36 h-10 invisible"></span>
   </a>
 
   <!-- NAV (solo desktop) -->
   <div>
-    <MainNav />
+    <MainNav dark={dark} />
   </div>
 
   <!-- MENU BUTTON (solo mobile) -->
@@ -35,7 +52,6 @@ const { transparent = false, animated = false } = Astro.props
     if (window.AOS) AOS.init({ once: true, duration: 800 })
   })
 
-  // Solo refrescar AOS después de la navegación SPA
   document.addEventListener('astro:page-load', () => {
     if (window.AOS) AOS.refreshHard()
   })
@@ -46,7 +62,15 @@ const { transparent = false, animated = false } = Astro.props
     const btn = document.querySelector('#menu-btn')
     const menu = document.querySelector('#mobile-menu')
     const header = document.querySelector('#main-header')
+    const logoText = document.querySelector('#header-logo')
+    const logoFull = document.querySelector('#header-logo-full')
+
     if (!btn || !menu || !header) return
+
+    function setLogosInvert(invert) {
+      if (logoText) logoText.classList.toggle('invert', invert)
+      if (logoFull) logoFull.classList.toggle('invert', invert)
+    }
 
     // Reset estado
     menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
@@ -69,10 +93,15 @@ const { transparent = false, animated = false } = Astro.props
         menu.classList.remove('max-h-0')
         menu.classList.add('max-h-[500px]', 'pt-6', 'pb-8')
         header.classList.add('header-scrolled', 'header-menu-open')
+        // Logo siempre sin invert cuando menú abierto
+        setLogosInvert(false)
       } else {
         menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
         menu.classList.add('max-h-0')
         header.classList.remove('header-menu-open')
+        // Restaurar según dark y scroll
+        const isDark = header.dataset.dark === 'true'
+        setLogosInvert(isDark && window.scrollY <= 50)
         if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
           header.classList.remove('header-scrolled')
         }
@@ -91,6 +120,9 @@ const { transparent = false, animated = false } = Astro.props
         icon.classList.add('fa-bars')
         icon.classList.remove('fa-xmark', 'rotate-90')
 
+        const isDark = header.dataset.dark === 'true'
+        setLogosInvert(isDark && window.scrollY <= 50)
+
         if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
           header.classList.remove('header-scrolled')
         }
@@ -99,4 +131,37 @@ const { transparent = false, animated = false } = Astro.props
   }
 
   document.addEventListener('astro:page-load', initMobileMenu)
+</script>
+
+<script is:inline data-hero-mode={heroMode}>
+  (function () {
+    const heroMode = document.currentScript?.dataset.heroMode === 'true'
+
+    function initHeroLogoObserver() {
+      if (!heroMode) return
+
+      const heroLogo = document.getElementById('hero-logo')
+      const logoText = document.getElementById('header-logo')
+      const logoFull = document.getElementById('header-logo-full')
+
+      if (!heroLogo || !logoText || !logoFull) return
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            logoText.style.opacity = '1'
+            logoFull.style.opacity = '0'
+          } else {
+            logoText.style.opacity = '0'
+            logoFull.style.opacity = '1'
+          }
+        },
+        { threshold: 0.1 }
+      )
+
+      observer.observe(heroLogo)
+    }
+
+    document.addEventListener('astro:page-load', initHeroLogoObserver)
+  })()
 </script>

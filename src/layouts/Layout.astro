@@ -21,6 +21,10 @@ const { hero = false } = Astro.props
       href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap"
+      rel="stylesheet"
+    />
     <title>Geração de Conquista Church</title>
     <ClientRouter />
   </head>
@@ -72,7 +76,8 @@ const { hero = false } = Astro.props
     splash.id = 'splash'
     splash.style.cssText =
       'position:fixed;inset:0;z-index:999;background:black;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.5s ease;'
-    splash.innerHTML = '<img src="/logo-bola.png" style="width:160px;animation:bounce 1s infinite;" />'
+    splash.innerHTML =
+      '<img src="/logo-bola.png" style="width:160px;animation:bounce 1s infinite;" />'
 
     document.addEventListener('DOMContentLoaded', () => {
       document.body.prepend(splash)
@@ -89,23 +94,66 @@ const { hero = false } = Astro.props
   }
 
   // SCRIPT SCROLL
-  function initHeaderScroll() {
-    const header = document.querySelector('#main-header')
-    if (!header) return
+function initHeaderScroll() {
+  const header = document.querySelector('#main-header')
+  if (!header) return
 
-    const isTransparent = header.dataset.transparent === 'true'
-    header.classList.remove('header-scrolled')
+  const isTransparent = header.dataset.transparent === 'true'
+  const isDark = header.dataset.dark === 'true'
+  const logoText = document.querySelector('#header-logo')    
+  const logoFull = document.querySelector('#header-logo-full') 
+  const menu = document.querySelector('#mobile-menu')
 
-    function handleScroll() {
-      if (!isTransparent) return
-      header.classList.toggle('header-scrolled', window.scrollY > 50)
-    }
+  header.classList.remove('header-scrolled')
+  header.dataset.scrolled = 'false'
 
-    window.removeEventListener('scroll', window._scrollHandler)
-    window._scrollHandler = handleScroll
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
+  function setLogosInvert(invert) {
+    if (logoText) logoText.classList.toggle('invert', invert)
+    if (logoFull) logoFull.classList.toggle('invert', invert)
   }
+
+  if (isDark) {
+    header.classList.add('text-black')
+    header.classList.remove('text-white')
+    setLogosInvert(true)                                     
+  } else {
+    header.classList.add('text-white')
+    header.classList.remove('text-black')
+    setLogosInvert(false)                                    
+  }
+
+  function handleScroll() {
+    if (!isTransparent) return
+    const scrolled = window.scrollY > 50
+    const menuOpen = menu && !menu.classList.contains('max-h-0')
+
+    header.classList.toggle('header-scrolled', scrolled)
+    header.dataset.scrolled = scrolled ? 'true' : 'false'
+
+    if (menuOpen) return
+
+    if (scrolled) {
+      header.classList.remove('text-black')
+      header.classList.add('text-white')
+      setLogosInvert(false)                                  
+    } else {
+      if (isDark) {
+        header.classList.add('text-black')
+        header.classList.remove('text-white')
+        setLogosInvert(true)                                 
+      } else {
+        header.classList.add('text-white')
+        header.classList.remove('text-black')
+        setLogosInvert(false)                                
+      }
+    }
+  }
+
+  window.removeEventListener('scroll', window._scrollHandler)
+  window._scrollHandler = handleScroll
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+}
 
   window.addEventListener('load', initHeaderScroll)
   document.addEventListener('astro:page-load', initHeaderScroll)
@@ -123,5 +171,12 @@ const { hero = false } = Astro.props
     if (!header) return
     header.style.paddingLeft = ''
     header.style.paddingRight = ''
+  })
+
+  document.addEventListener('astro:page-load', () => {
+    const hero = document.querySelector('.quem-somos-hero')
+    if (!hero) return
+    hero.style.background = ''
+    hero.style.backgroundColor = ''
   })
 </script>

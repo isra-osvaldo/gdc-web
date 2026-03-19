@@ -11,6 +11,7 @@ const navigation = [
 ]
 
 const currentPath = Astro.url.pathname
+const { dark = false } = Astro.props
 ---
 
 <nav class="relative w-full">
@@ -26,7 +27,8 @@ const currentPath = Astro.url.pathname
   >
     {
       navigation.map((item) => {
-        const isActive = currentPath === item.href ||
+        const isActive =
+          currentPath === item.href ||
           (item.href !== '/' && currentPath.startsWith(item.href))
 
         return (
@@ -34,13 +36,13 @@ const currentPath = Astro.url.pathname
             <a
               href={item.href}
               data-active={isActive ? 'true' : 'false'}
-              class={`flex items-center justify-center w-full py-2 rounded-md
-                text-white
+              class={`nav-link flex items-center justify-center w-full py-2 rounded-md
+                ${dark ? 'min-[860px]:text-black' : 'text-white'}
                 hover:bg-amber-200 hover:text-black
                 min-[860px]:hover:bg-transparent min-[860px]:hover:text-amber-200
                 transition-all duration-300
                 min-[860px]:w-auto min-[860px]:justify-start text-[12px] font-bold tracking-[1px]
-                ${isActive ? 'bg-amber-200 min-[860px]:bg-transparent' : ''}
+                ${isActive ? 'text-white min-[860px]:text-[#c9a84c] min-[860px]:bg-transparent' : ''}
               `}
             >
               {item.name}
@@ -58,13 +60,6 @@ const currentPath = Astro.url.pathname
   }
 
   a[data-active='true'] {
-    color: black;
-  }
-
-  @media (min-width: 860px) {
-    a[data-active='true'] {
-      color: rgb(253 230 138);
-      background: transparent;
-    }
+    color: white; /* mobile */
   }
 </style>

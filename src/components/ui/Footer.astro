@@ -1,32 +1,113 @@
 ---
-import RedesSociales from "./RedesSociales.astro";
-
-
+import RedesSociales from './RedesSociales.astro'
+const year = new Date().getFullYear()
 ---
 
-<footer class="bg-black/90 backdrop-blur-md text-white min-h-80 py-8 flex flex-col justify-between">
-  <div class="flex flex-col items-center md:flex-row md:justify-around md:items-center mt-12 gap-2">
-    <!-- Logo y descripción -->
-    <div class="w-80 flex flex-col justify-center items-center">
-      <a href="/"><img src="/logo-bola.png" alt="logo" class="w-50"></a>
-      <p class="mt-4 text-center text-sm">
-        Somos uma igreja de conquista, que busca inspirar e guiar pessoas a buscar a verdade, a justiça e a paz.
-      </p>
+<footer class="bg-[#0a0a0a] text-white py-12 pt-25 px-8 md:px-16">
+  <div class="max-w-6xl mx-auto">
+    <!-- Top row -->
+    <div class="flex justify-center items-center">
+      <div
+        class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 lg:gap-12 mb-4 lg:mb-10 items-center"
+      >
+        <!-- Izquierda — logo + descripción -->
+        <div
+          class="flex flex-col gap-4 max-w-xs items-center lg:items-start mx-auto lg:mx-0"
+        >
+          <a href="/"><img src="/logo-gdc.png" alt="logo" class="w-50" /></a>
+          <p
+            class="text-gray-400 text-sm leading-relaxed text-center lg:text-left"
+          >
+            <i
+              class="fa-solid fa-location-dot mr-1.5"
+              style="color: rgb(190, 190, 190);"></i>
+            Av. dos Tarumãs 2564 - <br /> Jardim Maringá – Sinop, MT - Brasil
+          </p>
+        </div>
+
+        <!-- Derecha — nav links -->
+        <nav
+          class="flex flex-col md:flex-row lg:flex-row gap-6 lg:gap-20 text-sm font-medium text-gray-300 mt-4 lg:mt-0 items-center md:items-start lg:items-start w-full lg:w-auto"
+        >
+          <div class="hidden lg:flex flex-col gap-3">
+            <h3 class="mb-3 uppercase font-semibold">Navegação</h3>
+            <a
+              href="/"
+              class="hover:text-[#c9a84c] transition-colors duration-300"
+              >Inicio</a
+            >
+            <a
+              href="/quem-somos"
+              class="hover:text-[#c9a84c] transition-colors duration-300"
+              >Quem somos</a
+            >
+            <a
+              href="/galeria"
+              class="hover:text-[#c9a84c] transition-colors duration-300"
+              >Galéria</a
+            >
+            <a
+              href="/recursos"
+              class="hover:text-[#c9a84c] transition-colors duration-300"
+              >Recursos</a
+            >
+            <a
+              href="/semeadura"
+              class="hover:text-[#c9a84c] transition-colors duration-300"
+              >Semeadura</a
+            >
+          </div>
+
+          <div
+            class="flex flex-col gap-3 items-center lg:items-start mb-6 md:mb-8 lg:mb-0"
+          >
+            <h3 class="mb-2 md:mb-2 lg:mb-3 uppercase font-semibold">
+              Social Media
+            </h3>
+            <!-- Mobile y desktop: vertical -->
+            <div class="md:hidden lg:block">
+              <RedesSociales vertical={true} />
+            </div>
+            <!-- Tablet: horizontal -->
+            <div class="hidden md:block lg:hidden">
+              <RedesSociales vertical={false} />
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col gap-3 items-center lg:items-start md:hidden lg:flex mb-8 md:mb-0"
+          >
+            <h3 class="mb-2 md:mb-3 uppercase font-semibold">Contato</h3>
+            <div class="flex items-center gap-2">
+              <div class="w-6 flex justify-center">
+                <i
+                  class="fa-regular fa-envelope social-icon"
+                  style="color: rgb(178, 170, 170);"></i>
+              </div>
+              <a href="#" class="lowercase text-sm">contato@gdc.com.br</a>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="w-6 flex justify-center">
+                <i
+                  class="fa-solid fa-phone social-icon"
+                  style="color: rgb(178, 170, 170);"></i>
+              </div>
+              <a href="#" class="lowercase text-sm">+55 (11) 9988-7766</a>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <div class="hidden md:block w-full h-px bg-gray-800 mb-8"></div>
+
+    <!-- Copyright -->
+    <p class="text-gray-500 text-xs md:text-sm text-center">
+      © {year} Geração de Conquista Church.
+    </p>
 
     <!-- Redes sociales -->
-    <div class="flex flex-col justify-center items-center gap-2 mt-6 md:mt-0">
-      <h3 class="font-medium lg:text-[17px]">Siga-nos nas redes sociais</h3>
-      <RedesSociales />
-    </div>
   </div>
-
-  <!-- Copyright -->
-  <p class="text-center text-sm md:text-base pt-8">
-    Copyright © <span id="year"></span> | Geração de Conquista Church
-  </p>
 </footer>
-
-<script is:inline>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>

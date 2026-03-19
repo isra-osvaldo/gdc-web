@@ -6,18 +6,20 @@ import Footer from '../components/ui/Footer.astro'
 import '../styles/global.css'
 import Pastores from '../components/ui/Pastores.astro'
 import Ubicacion from '../components/ui/Ubicacion.astro'
+import NossosPastores from '../components/ui/Nossos-pastores.astro'
 ---
 
 <Layout hero={true}>
-  <Header transparent={true} animated={true} />
+  <Header transparent={true} animated={true} heroMode={true} />
   <HeroVideo />
-  <Pastores />
+  <NossosPastores />
+  <!-- <Pastores /> -->
   <section class="libros" data-aos="fade-zoom-in">
-    <h2 class="text-3xl md:text-4xl font-extrabold uppercase text-gray-600">Adquira nossos livros</h2>
+    <h2 class="text-3xl md:text-4xl font-extrabold uppercase text-white">Adquira nossos livros</h2>
 
     <article class="libros-container">
       <div class="libro">
-        <a href="#"><img src="/libros/cultivando.webp" alt="Cultivando" /></a>
+        <a href="#"><img src="/libros/onde-estao.png" alt="Onde estão os Elias de Deus" /></a>
       </div>
 
       <div class="libro">
@@ -32,6 +34,14 @@ import Ubicacion from '../components/ui/Ubicacion.astro'
       <div class="libro">
         <a href="#"
           ><img
+            src="/libros/cultivando.webp"
+            alt="Cultivando"
+          /></a
+        >
+      </div>
+      <div class="libro">
+        <a href="#"
+          ><img
             src="/libros/la-gloria-de-dios.webp"
             alt="La gloria de Dios"
           /></a
@@ -39,7 +49,6 @@ import Ubicacion from '../components/ui/Ubicacion.astro'
       </div>
     </article>
   </section>
-  <Ubicacion />
+  <!-- <Ubicacion /> -->
   <Footer />
 </Layout>
-

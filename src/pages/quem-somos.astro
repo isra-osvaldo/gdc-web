@@ -2,26 +2,104 @@
 import Footer from '../components/ui/Footer.astro'
 import Header from '../components/ui/Header.astro'
 import Layout from '../layouts/Layout.astro'
+import '../styles/global.css'
 ---
 
 <Layout>
-  <Header transparent={true} />
+  <Header transparent={true} dark={true} />
 
-  <section
-    class="bg-cyan-950 text-white min-h-screen flex items-center justify-center -mt-20 pt-20"
-  >
-    <h1 
-      class="text-4xl sm:text-5xl lg:text-7xl font-extrabold uppercase animate-fade-in-down">Quem somos</h1>
+  <!-- HERO -->
+  <section class="quem-somos-hero min-h-screen flex items-center -mt-20 pt-20">
+    <div
+      class="max-w-6xl mx-auto px-8 w-full grid lg:grid-cols-2 gap-12 items-center py-20 animate-blurred-fade-in"
+    >
+      <!-- Texto -->
+      <div class="">
+        <p
+          class="text-[#c9a84c] text-sm font-semibold tracking-widest uppercase mb-1"
+        >
+          Geração de Conquista
+        </p>
+        <h1
+          class="text-4xl lg:text-6xl font-extrabold uppercase text-[#454441] leading-tight mb-6"
+        >
+          Nossa Igreja
+        </h1>
+        <p class="text-gray-600 text-lg leading-relaxed">
+          Somos uma igreja apaixonada por Jesus e pelas pessoas. Acreditamos que
+          cada vida tem um propósito e trabalhamos juntos para que cada pessoa
+          descubra e viva esse propósito em plenitude.
+        </p>
+      </div>
+
+      <!-- Imagen -->
+      <!-- Bento de imágenes -->
+      <div
+        class="grid grid-cols-2 grid-rows-3 gap-2 h-[500px]"
+        data-aos="fade-zoom-in"
+      >
+        <!-- Imagen grande izquierda -->
+        <div class="row-span-2 overflow-hidden rounded-2xl">
+          <img
+            src="/foto-1.png"
+            alt="Igreja"
+            class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-all duration-500"
+          />
+        </div>
+
+        <!-- Imagen top derecha -->
+        <div class="overflow-hidden rounded-2xl">
+          <img
+            src="/foto-iglesia.png"
+            alt="Igreja"
+            class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <!-- Imagen medio derecha -->
+        <div class="overflow-hidden rounded-2xl">
+          <img
+            src="/foto-2.png"
+            alt="Igreja"
+            class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <!-- Imagen ancha abajo izquierda -->
+        <div class="overflow-hidden rounded-2xl">
+          <img
+            src="/foto-3.png"
+            alt="Igreja"
+            class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <!-- Imagen ancha abajo derecha -->
+        <div class="overflow-hidden rounded-2xl">
+          <img
+            src="/foto-4.png"
+            alt="Igreja"
+            class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRASE CENTRAL -->
+  <section class="quem-somos-quote py-24">
+    <div class="max-w-4xl mx-auto px-8 text-center">
+      <p
+        class="text-xl md:text-2xl font-light text-white leading-relaxed"
+        data-aos="fade-up"
+      >
+        Somos comprometidos em pregar o evangelho com
+        <span class="text-[#c9a84c] font-semibold"> amor e ousadia</span>,
+        fazendo discípulos e transformando
+        <span class="text-[#c9a84c] font-semibold"> comunidades inteiras</span>.
+      </p>
+    </div>
   </section>
 
   <Footer />
 </Layout>
-
-<style>
-  main {
-    position: relative;
-    width: 100%;
-    min-height: 100dvh;
-    overflow: hidden;
-  }
-</style>
