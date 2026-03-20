@@ -143,6 +143,27 @@ const {
     const heroMode = document.currentScript?.dataset.heroMode === 'true'
     let currentObserver = null
 
+    function checkHeroVisibility() {
+      const heroLogo = document.getElementById('hero-logo')
+      const logoText = document.getElementById('header-logo')
+      const logoFull = document.getElementById('header-logo-full')
+
+      if (!logoText || !logoFull) return
+
+      if (!heroMode || !heroLogo) {
+        logoText.style.opacity = '0'
+        logoFull.style.opacity = '1'
+        return
+      }
+
+      const rect = heroLogo.getBoundingClientRect()
+      const headerHeight = document.getElementById('main-header')?.offsetHeight ?? 80
+      const isVisible = rect.top < window.innerHeight && rect.bottom > headerHeight
+
+      logoText.style.opacity = isVisible ? '1' : '0'
+      logoFull.style.opacity = isVisible ? '0' : '1'
+    }
+
     function initHeroLogoObserver() {
       if (currentObserver) {
         currentObserver.disconnect()
@@ -152,47 +173,33 @@ const {
       const logoText = document.getElementById('header-logo')
       const logoFull = document.getElementById('header-logo-full')
 
-      if (logoText && logoFull) {
-        if (!heroMode) {
-          logoText.style.opacity = '0'
-          logoFull.style.opacity = '1'
-          return
-        }
+      if (!logoText || !logoFull) return
+
+      if (!heroMode) {
+        logoText.style.opacity = '0'
+        logoFull.style.opacity = '1'
+        return
       }
 
       const heroLogo = document.getElementById('hero-logo')
-      if (!heroLogo || !logoText || !logoFull) return
+      if (!heroLogo) return
 
       currentObserver = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            logoText.style.opacity = '1'
-            logoFull.style.opacity = '0'
-          } else {
-            logoText.style.opacity = '0'
-            logoFull.style.opacity = '1'
-          }
+          console.log('Observer disparó — isIntersecting:', entry.isIntersecting)
+          logoText.style.opacity = entry.isIntersecting ? '1' : '0'
+          logoFull.style.opacity = entry.isIntersecting ? '0' : '1'
         },
-        {
-          rootMargin: '-80px 0px 0px 0px',
-          threshold: 0
-        }
+        { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
       )
 
       currentObserver.observe(heroLogo)
 
-      // 👇 Verificar estado inicial manualmente
-      const rect = heroLogo.getBoundingClientRect()
-      const headerHeight = document.getElementById('main-header')?.offsetHeight ?? 80
-      const isVisible = rect.top < window.innerHeight && rect.bottom > headerHeight
-
-      if (isVisible) {
-        logoText.style.opacity = '1'
-        logoFull.style.opacity = '0'
-      } else {
-        logoText.style.opacity = '0'
-        logoFull.style.opacity = '1'
-      }
+      // Check inmediato + con delay para asegurar
+      checkHeroVisibility()
+      console.log('checkHeroVisibility ejecutado — heroLogo rect:', document.getElementById('hero-logo')?.getBoundingClientRect())
+      setTimeout(checkHeroVisibility, 100)
+      setTimeout(checkHeroVisibility, 300)
     }
 
     document.addEventListener('astro:before-preparation', () => {
@@ -200,6 +207,11 @@ const {
         currentObserver.disconnect()
         currentObserver = null
       }
+      // Resetear logos al navegar
+      const logoText = document.getElementById('header-logo')
+      const logoFull = document.getElementById('header-logo-full')
+      if (logoText) logoText.style.opacity = '0'
+      if (logoFull) logoFull.style.opacity = '1'
     })
 
     document.addEventListener('astro:page-load', initHeroLogoObserver)
