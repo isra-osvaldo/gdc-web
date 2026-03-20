@@ -24,7 +24,7 @@ const {
     <img
       id="header-logo"
       src="/logo-text.png"
-      class={`w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert' : ''}`}
+      class={`w-32 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert' : ''}`}
       style={`opacity: ${heroMode ? '1' : '0'};`}
     />
     <!-- Logo completo (visible por defecto) -->
@@ -141,22 +141,26 @@ const {
 <script is:inline data-hero-mode={heroMode}>
   (function () {
     const heroMode = document.currentScript?.dataset.heroMode === 'true'
-
-    let currentObserver = null // 👈 guardamos referencia al observer activo
+    let currentObserver = null
 
     function initHeroLogoObserver() {
-      if (!heroMode) return
-
-      // Desconectar observer anterior si existe
       if (currentObserver) {
         currentObserver.disconnect()
         currentObserver = null
       }
 
-      const heroLogo = document.getElementById('hero-logo')
       const logoText = document.getElementById('header-logo')
       const logoFull = document.getElementById('header-logo-full')
 
+      if (logoText && logoFull) {
+        if (!heroMode) {
+          logoText.style.opacity = '0'
+          logoFull.style.opacity = '1'
+          return
+        }
+      }
+
+      const heroLogo = document.getElementById('hero-logo')
       if (!heroLogo || !logoText || !logoFull) return
 
       currentObserver = new IntersectionObserver(
@@ -171,12 +175,32 @@ const {
         },
         {
           rootMargin: '-80px 0px 0px 0px',
-          threshold: 0,
-        },
+          threshold: 0
+        }
       )
 
       currentObserver.observe(heroLogo)
+
+      // 👇 Verificar estado inicial manualmente
+      const rect = heroLogo.getBoundingClientRect()
+      const headerHeight = document.getElementById('main-header')?.offsetHeight ?? 80
+      const isVisible = rect.top < window.innerHeight && rect.bottom > headerHeight
+
+      if (isVisible) {
+        logoText.style.opacity = '1'
+        logoFull.style.opacity = '0'
+      } else {
+        logoText.style.opacity = '0'
+        logoFull.style.opacity = '1'
+      }
     }
+
+    document.addEventListener('astro:before-preparation', () => {
+      if (currentObserver) {
+        currentObserver.disconnect()
+        currentObserver = null
+      }
+    })
 
     document.addEventListener('astro:page-load', initHeroLogoObserver)
   })()
