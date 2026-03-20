@@ -11,7 +11,7 @@ import '../styles/global.css'
   <!-- HERO -->
   <section
     class="min-h-[100dvh] flex items-center -mt-20 pt-20 relative overflow-hidden"
-    style="background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%; background-attachment: fixed;"
+    style="background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%;"
   >
     <div
       class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"
@@ -38,9 +38,9 @@ import '../styles/global.css'
     </div>
   </section>
 
-  <!-- VERSÍCULO -->
+  <!-- VERSÍCULO — sin data-aos, está justo después del hero -->
   <section class="bg-[#454441] py-16">
-    <div class="max-w-3xl mx-auto px-8 text-center" data-aos="fade-up">
+    <div class="max-w-3xl mx-auto px-8 text-center">
       <p
         class="text-xl md:text-2xl font-light text-white leading-relaxed italic"
       >
@@ -59,7 +59,7 @@ import '../styles/global.css'
   <section class="bg-white py-24">
     <div class="max-w-5xl mx-auto px-8">
       <!-- Título arriba, fuera del grid -->
-      <div class="mb-10" data-aos="fade-up">
+      <div class="mb-10" data-aos="fade-up" data-aos-offset="0">
         <h2 class="text-3xl font-extrabold uppercase text-[#454441] mb-4">
           Como semear
         </h2>
@@ -71,7 +71,7 @@ import '../styles/global.css'
 
       <div class="grid lg:grid-cols-2 gap-4">
         <!-- Lado izquierdo — solo los dos cards -->
-        <div class="flex flex-col gap-4" data-aos="fade-right">
+        <div class="flex flex-col gap-4" data-aos="fade-right" data-aos-offset="0">
           <!-- Chave PIX -->
           <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
             <p
@@ -122,7 +122,7 @@ import '../styles/global.css'
         </div>
 
         <!-- Lado derecho — QR centrado -->
-        <div class="flex items-center justify-center" data-aos="fade-left">
+        <div class="flex items-center justify-center" data-aos="fade-left" data-aos-offset="0">
           <div
             class="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg flex flex-col items-center gap-4 w-full max-w-sm"
           >
