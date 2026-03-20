@@ -1,0 +1,65 @@
+---
+type Effect = 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'zoom-in' | 'zoom-out' | 'flip-up' | 'flip-left' | 'blur-in'
+const { effect = 'fade-up', duration = 1.2, delay = 0 } = Astro.props
+---
+
+<div class="animate-on-scroll" data-effect={effect} data-duration={duration} data-delay={delay}>
+  <slot />
+</div>
+
+<script>
+  import { inView, animate } from "motion";
+
+  const effects: Record<string, object> = {
+    'fade-up':    { opacity: [0, 1], y: [80, 0] },
+    'fade-down':  { opacity: [0, 1], y: [-80, 0] },
+    'fade-left':  { opacity: [0, 1], x: [-80, 0] },
+    'fade-right': { opacity: [0, 1], x: [80, 0] },
+    'zoom-in':    { opacity: [0, 1], scale: [0.8, 1] },
+    'zoom-out':   { opacity: [0, 1], scale: [1.2, 1] },
+    'flip-up':    { opacity: [0, 1], rotateX: [90, 0] },
+    'flip-left':  { opacity: [0, 1], rotateY: [90, 0] },
+    'blur-in':    { opacity: [0, 1], filter: ['blur(12px)', 'blur(0px)'] },
+  }
+
+  const initialTransform: Record<string, string> = {
+    'fade-up':    'translateY(80px)',
+    'fade-down':  'translateY(-80px)',
+    'fade-left':  'translateX(-80px)',
+    'fade-right': 'translateX(80px)',
+    'zoom-in':    'scale(0.8)',
+    'zoom-out':   'scale(1.2)',
+    'flip-up':    'rotateX(90deg)',
+    'flip-left':  'rotateY(90deg)',
+    'blur-in':    'none',
+  }
+
+  function init() {
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
+    elements.forEach((el) => {
+      const effect = el.getAttribute("data-effect") || "fade-up";
+      const duration = parseFloat(el.getAttribute("data-duration") || "1.2");
+      const delay = parseFloat(el.getAttribute("data-delay") || "0");
+
+      const keyframes = effects[effect] ?? effects['fade-up'];
+      const transform = initialTransform[effect] ?? 'translateY(80px)';
+
+      if (effect === 'blur-in') {
+        el.setAttribute("style", "opacity: 0; filter: blur(12px);");
+      } else {
+        el.setAttribute("style", `opacity: 0; transform: ${transform};`);
+      }
+
+      inView(el, () => {
+        animate(el, keyframes, {
+          duration,
+          delay,
+          ease: [0.17, 0.55, 0.55, 1.0]
+        });
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", init);
+</script>

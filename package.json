@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
-    "aos": "^2.3.4",
     "astro": "^6.0.4",
+    "motion": "^12.38.0",
     "tailwind-animations": "^1.0.1",
     "tailwindcss": "^4.2.1"
   },

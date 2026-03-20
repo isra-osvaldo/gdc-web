@@ -52,21 +52,6 @@ const { hero = false } = Astro.props
   document.addEventListener('astro:page-load', () => window.scrollTo(0, 0))
 </script>
 
-<!-- SCRIPT AOS — cargado como módulo de cliente -->
-<script>
-  import AOS from 'aos'
-  import 'aos/dist/aos.css'
-
-  function initAOS() {
-    AOS.init({
-      duration: 1200,
-      once: true,
-      mirror: false,
-    })
-  }
-
-  document.addEventListener('astro:page-load', initAOS)
-</script>
 
 <script is:inline>
   // SPLASH
