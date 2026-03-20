@@ -14,27 +14,24 @@ const {
 <header
   id="main-header"
   data-transparent={transparent}
-  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border ${dark ? 'text-black' : 'text-white'} min-h-20 flex items-center justify-between z-[60] transition-[background-color,box-shadow,color] duration-300 ${transparent ? '' : 'header-scrolled'} header-dark`
   data-dark={dark}
   data-scrolled="false"
+  class=`${animated ? 'animate-fade-in-up': ''} fixed top-0 left-0 inset-x-0 w-full box-border ${dark ? 'text-black' : 'text-white'} min-h-20 flex items-center justify-between z-[60] transition-[background-color,box-shadow,color] duration-300 header-dark`
 >
   <!-- LOGO -->
   <a href="/" class="relative z-[80]">
-    <!-- Logo solo texto (visible si heroMode) -->
     <img
       id="header-logo"
       src="/logo-text.png"
       class={`w-32 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500 ${dark ? 'invert' : ''}`}
       style={`opacity: ${heroMode ? '1' : '0'};`}
     />
-    <!-- Logo completo (visible por defecto) -->
     <img
       id="header-logo-full"
       src="/logo-gdc.png"
       class="w-36 absolute top-1/2 left-0 -translate-y-1/2 transition-opacity duration-500"
       style={`opacity: ${heroMode ? '0' : '1'};`}
     />
-    <!-- Spacer para que el <a> tenga dimensiones -->
     <span class="block w-36 h-10 invisible"></span>
   </a>
 
@@ -53,16 +50,6 @@ const {
 </header>
 
 <script is:inline>
-  window.addEventListener('load', () => {
-    if (window.AOS) AOS.init({ once: true, duration: 800 })
-  })
-
-  document.addEventListener('astro:page-load', () => {
-    if (window.AOS) AOS.refreshHard()
-  })
-</script>
-
-<script is:inline>
   function initMobileMenu() {
     const btn = document.querySelector('#menu-btn')
     const menu = document.querySelector('#mobile-menu')
@@ -77,7 +64,6 @@ const {
       if (logoFull) logoFull.classList.toggle('invert', invert)
     }
 
-    // Reset estado
     menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
     menu.classList.add('max-h-0')
     header.classList.remove('header-menu-open')
@@ -98,13 +84,11 @@ const {
         menu.classList.remove('max-h-0')
         menu.classList.add('max-h-[500px]', 'pt-6', 'pb-8')
         header.classList.add('header-scrolled', 'header-menu-open')
-        // Logo siempre sin invert cuando menú abierto
         setLogosInvert(false)
       } else {
         menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
         menu.classList.add('max-h-0')
         header.classList.remove('header-menu-open')
-        // Restaurar según dark y scroll
         const isDark = header.dataset.dark === 'true'
         setLogosInvert(isDark && window.scrollY <= 50)
         if (header.dataset.transparent === 'true' && window.scrollY <= 50) {
@@ -186,7 +170,6 @@ const {
 
       currentObserver = new IntersectionObserver(
         ([entry]) => {
-          console.log('Observer disparó — isIntersecting:', entry.isIntersecting)
           logoText.style.opacity = entry.isIntersecting ? '1' : '0'
           logoFull.style.opacity = entry.isIntersecting ? '0' : '1'
         },
@@ -194,10 +177,7 @@ const {
       )
 
       currentObserver.observe(heroLogo)
-
-      // Check inmediato + con delay para asegurar
       checkHeroVisibility()
-      console.log('checkHeroVisibility ejecutado — heroLogo rect:', document.getElementById('hero-logo')?.getBoundingClientRect())
       setTimeout(checkHeroVisibility, 100)
       setTimeout(checkHeroVisibility, 300)
     }
@@ -207,7 +187,6 @@ const {
         currentObserver.disconnect()
         currentObserver = null
       }
-      // Resetear logos al navegar
       const logoText = document.getElementById('header-logo')
       const logoFull = document.getElementById('header-logo-full')
       if (logoText) logoText.style.opacity = '0'

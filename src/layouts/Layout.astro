@@ -52,7 +52,6 @@ const { hero = false } = Astro.props
   document.addEventListener('astro:page-load', () => window.scrollTo(0, 0))
 </script>
 
-
 <script is:inline>
   // SPLASH
   if (!sessionStorage.getItem('splashShown')) {
@@ -80,66 +79,66 @@ const { hero = false } = Astro.props
   }
 
   // SCRIPT SCROLL
-function initHeaderScroll() {
-  const header = document.querySelector('#main-header')
-  if (!header) return
+  function initHeaderScroll() {
+    const header = document.querySelector('#main-header')
+    if (!header) return
 
-  const isTransparent = header.dataset.transparent === 'true'
-  const isDark = header.dataset.dark === 'true'
-  const logoText = document.querySelector('#header-logo')    
-  const logoFull = document.querySelector('#header-logo-full') 
-  const menu = document.querySelector('#mobile-menu')
+    const isTransparent = header.dataset.transparent === 'true'
+    const isDark = header.dataset.dark === 'true'
+    const logoText = document.querySelector('#header-logo')
+    const logoFull = document.querySelector('#header-logo-full')
+    const menu = document.querySelector('#mobile-menu')
 
-  header.classList.remove('header-scrolled')
-  header.dataset.scrolled = 'false'
+    header.classList.remove('header-scrolled')
+    header.dataset.scrolled = 'false'
 
-  function setLogosInvert(invert) {
-    if (logoText) logoText.classList.toggle('invert', invert)
-    if (logoFull) logoFull.classList.toggle('invert', invert)
-  }
+    function setLogosInvert(invert) {
+      if (logoText) logoText.classList.toggle('invert', invert)
+      if (logoFull) logoFull.classList.toggle('invert', invert)
+    }
 
-  if (isDark) {
-    header.classList.add('text-black')
-    header.classList.remove('text-white')
-    setLogosInvert(true)                                     
-  } else {
-    header.classList.add('text-white')
-    header.classList.remove('text-black')
-    setLogosInvert(false)                                    
-  }
-
-  function handleScroll() {
-    if (!isTransparent) return
-    const scrolled = window.scrollY > 50
-    const menuOpen = menu && !menu.classList.contains('max-h-0')
-
-    header.classList.toggle('header-scrolled', scrolled)
-    header.dataset.scrolled = scrolled ? 'true' : 'false'
-
-    if (menuOpen) return
-
-    if (scrolled) {
-      header.classList.remove('text-black')
-      header.classList.add('text-white')
-      setLogosInvert(false)                                  
+    if (isDark) {
+      header.classList.add('text-black')
+      header.classList.remove('text-white')
+      setLogosInvert(true)
     } else {
-      if (isDark) {
-        header.classList.add('text-black')
-        header.classList.remove('text-white')
-        setLogosInvert(true)                                 
-      } else {
-        header.classList.add('text-white')
+      header.classList.add('text-white')
+      header.classList.remove('text-black')
+      setLogosInvert(false)
+    }
+
+    function handleScroll() {
+      if (!isTransparent) return
+      const scrolled = window.scrollY > 50
+      const menuOpen = menu && !menu.classList.contains('max-h-0')
+
+      header.classList.toggle('header-scrolled', scrolled)
+      header.dataset.scrolled = scrolled ? 'true' : 'false'
+
+      if (menuOpen) return
+
+      if (scrolled) {
         header.classList.remove('text-black')
-        setLogosInvert(false)                                
+        header.classList.add('text-white')
+        setLogosInvert(false)
+      } else {
+        if (isDark) {
+          header.classList.add('text-black')
+          header.classList.remove('text-white')
+          setLogosInvert(true)
+        } else {
+          header.classList.add('text-white')
+          header.classList.remove('text-black')
+          setLogosInvert(false)
+        }
       }
     }
-  }
 
-  window.removeEventListener('scroll', window._scrollHandler)
-  window._scrollHandler = handleScroll
-  window.addEventListener('scroll', handleScroll)
-  handleScroll()
-}
+    window.removeEventListener('scroll', window._scrollHandler)
+    window._scrollHandler = handleScroll
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+  }
 
   window.addEventListener('load', initHeaderScroll)
   document.addEventListener('astro:page-load', initHeaderScroll)
@@ -157,12 +156,5 @@ function initHeaderScroll() {
     if (!header) return
     header.style.paddingLeft = ''
     header.style.paddingRight = ''
-  })
-
-  document.addEventListener('astro:page-load', () => {
-    const hero = document.querySelector('.quem-somos-hero')
-    if (!hero) return
-    hero.style.background = ''
-    hero.style.backgroundColor = ''
   })
 </script>

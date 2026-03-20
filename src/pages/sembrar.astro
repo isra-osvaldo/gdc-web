@@ -8,12 +8,10 @@ import '../styles/global.css'
 
 <Layout>
   <link rel="preload" as="image" href="/bg-siembra.webp" slot="head" />
-  <Header transparent={true} />
+  <Header transparent={true} animated={false} />
 
   <!-- HERO -->
   <section
-    transition:name="hero-bg"
-    transition:animate="fade"
     class="min-h-[100dvh] flex items-center -mt-20 pt-20 relative overflow-hidden"
     style="background-color: #111111; background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%;"
   >

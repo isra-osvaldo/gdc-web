@@ -6,6 +6,19 @@ html {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Header transparente sin scroll */
+#main-header[data-transparent='true'][data-scrolled='false'] {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Header con scroll o no transparente */
+#main-header[data-scrolled='true'],
+#main-header[data-transparent='false'] {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px);
+}
+
 .header-scrolled {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(15px);
@@ -117,7 +130,7 @@ html {
 }
 
 .quem-somos-hero {
-  background-color: #fff;
+  background-color: #fff; 
 }
 
 .quem-somos-quote {
@@ -194,7 +207,6 @@ html {
     color: white !important;
   }
 
-  /* Active con máxima especificidad */
   #main-header[data-dark='true'][data-scrolled='false']
     .nav-link[data-active='true'],
   #main-header[data-dark='false'][data-scrolled='false']
