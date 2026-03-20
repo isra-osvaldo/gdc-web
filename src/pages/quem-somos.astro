@@ -35,7 +35,7 @@ import '../styles/global.css'
       <!-- Imagen -->
       <!-- Bento de imágenes -->
       <div
-        class="grid grid-cols-2 grid-rows-3 gap-2 h-[500px]"
+        class="hidden lg:grid grid-cols-2 grid-rows-3 gap-2 h-[500px]"
         data-aos="fade-zoom-in"
       >
         <!-- Imagen grande izquierda -->
@@ -82,6 +82,17 @@ import '../styles/global.css'
             class="w-full h-full object-cover brightness-80 hover:brightness-110 hover:scale-105 transition-transform duration-500"
           />
         </div>
+        <!-- Imagen simple — solo mobile -->
+      </div>
+      <div
+        class="lg:hidden overflow-hidden rounded-2xl h-72"
+        data-aos="fade-up"
+      >
+        <img
+          src="/foto-iglesia.png"
+          alt="Igreja"
+          class="w-full h-full object-cover brightness-80"
+        />
       </div>
     </div>
   </section>

@@ -1,0 +1,185 @@
+---
+import Footer from '../components/ui/Footer.astro'
+import Header from '../components/ui/Header.astro'
+import Layout from '../layouts/Layout.astro'
+import '../styles/global.css'
+---
+
+<Layout>
+  <Header transparent={true} />
+
+  <!-- HERO -->
+  <section
+    class="min-h-[100dvh] flex items-center -mt-20 pt-20 relative overflow-hidden"
+    style="background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%; background-attachment: fixed;"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"
+    >
+    </div>
+    <div
+      class="relative z-10 max-w-4xl mx-auto px-8 w-full py-20 animate-blurred-fade-in"
+    >
+      <p
+        class="text-[#c9a84c] text-sm font-semibold tracking-widest uppercase mb-1"
+      >
+        Oferta & Dízimo
+      </p>
+      <h1
+        class="text-4xl lg:text-6xl font-extrabold uppercase text-white leading-tight mb-6"
+      >
+        Semear é um ato de fé
+      </h1>
+      <p class="text-white/80 text-lg leading-relaxed max-w-2xl">
+        Quando você semeia, você não está apenas dando — você está investindo no
+        Reino de Deus e acreditando que Ele multiplica tudo que é entregue com
+        amor.
+      </p>
+    </div>
+  </section>
+
+  <!-- VERSÍCULO -->
+  <section class="bg-[#454441] py-16">
+    <div class="max-w-3xl mx-auto px-8 text-center" data-aos="fade-up">
+      <p
+        class="text-xl md:text-2xl font-light text-white leading-relaxed italic"
+      >
+        "Cada um dê conforme determinou em seu coração, não com pesar ou por
+        obrigação, pois Deus ama quem dá com alegria."
+      </p>
+      <span
+        class="text-[#c9a84c] text-sm font-semibold tracking-widest uppercase mt-4 block"
+      >
+        2 Coríntios 9:7
+      </span>
+    </div>
+  </section>
+
+  <!-- QR + CHAVE PIX -->
+  <section class="bg-white py-24">
+    <div class="max-w-5xl mx-auto px-8">
+      <!-- Título arriba, fuera del grid -->
+      <div class="mb-10" data-aos="fade-up">
+        <h2 class="text-3xl font-extrabold uppercase text-[#454441] mb-4">
+          Como semear
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed">
+          Faça sua oferta via PIX de forma rápida e segura. Escaneie o QR Code
+          ao lado ou copie a chave abaixo.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-4">
+        <!-- Lado izquierdo — solo los dos cards -->
+        <div class="flex flex-col gap-4" data-aos="fade-right">
+          <!-- Chave PIX -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <p
+              class="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-2"
+            >
+              CNPJ
+            </p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span
+                id="pix-key"
+                class="text-[#454441] font-mono text-sm font-bold break-all"
+              >
+                41.948.386/0001.45
+              </span>
+              <button
+                id="copy-btn"
+                onclick="copyPix()"
+                class="flex items-center gap-2 bg-[#c9a84c] hover:bg-[#b8943d] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors duration-200 cursor-pointer whitespace-nowrap"
+              >
+                <i class="fa-regular fa-copy"></i>
+                Copiar
+              </button>
+            </div>
+            <p
+              id="copy-feedback"
+              class="text-green-600 text-sm opacity-0 transition-opacity duration-300 mt-2"
+            >
+              ✓ Chave copiada!
+            </p>
+          </div>
+
+          <!-- Dados bancários -->
+          <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+            <p
+              class="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-3"
+            >
+              Dados Bancários
+            </p>
+            <div class="space-y-1 text-[#454441]">
+              <p><span class="font-bold">Banco:</span> Sicredi</p>
+              <p><span class="font-bold">Ag.</span> 0812</p>
+              <p><span class="font-bold">C/C:</span> 02471-5</p>
+              <p>
+                <span class="font-bold">Titular:</span> Igreja Geração de Conquista
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lado derecho — QR centrado -->
+        <div class="flex items-center justify-center" data-aos="fade-left">
+          <div
+            class="bg-white border border-gray-200 rounded-3xl p-8 shadow-lg flex flex-col items-center gap-4 w-full max-w-sm"
+          >
+            <p class="text-[#454441] font-bold text-lg">PIX</p>
+            <img
+              src="/qr-pix.png"
+              alt="QR Code PIX"
+              class="w-52 h-52 object-contain"
+              onerror="this.outerHTML=`<div class='w-52 h-52 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-sm'>QR Code</div>`"
+            />
+            <p class="text-gray-400 text-sm text-center">
+              Aponte a câmera do celular para pagar
+            </p>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm mt-4 text-center lg:text-left">
+          Sua oferta é recebida com gratidão e será usada integralmente para os
+          projetos e missão da Geração de Conquista.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="quem-somos-quote py-20">
+    <div class="max-w-3xl mx-auto px-8 text-center" data-aos="fade-up">
+      <h3 class="text-2xl md:text-3xl font-extrabold uppercase text-white mb-4">
+        Obrigado por semear
+      </h3>
+      <p class="text-white/70 text-lg leading-relaxed">
+        Cada semente plantada no Reino de Deus dá frutos que permanecem para
+        sempre. Que Deus multiplique tudo o que você semeou hoje.
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script is:inline>
+  function copyPix() {
+    const key = document.getElementById('pix-key')?.innerText?.trim()
+    if (!key) return
+
+    navigator.clipboard.writeText(key).then(() => {
+      const feedback = document.getElementById('copy-feedback')
+      const btn = document.getElementById('copy-btn')
+      if (feedback) {
+        feedback.style.opacity = '1'
+        setTimeout(() => (feedback.style.opacity = '0'), 2500)
+      }
+      if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado'
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copiar'
+        }, 2500)
+      }
+    })
+  }
+</script>

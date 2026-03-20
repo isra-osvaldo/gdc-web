@@ -139,11 +139,19 @@ const {
 </script>
 
 <script is:inline data-hero-mode={heroMode}>
-  ;(function () {
+  (function () {
     const heroMode = document.currentScript?.dataset.heroMode === 'true'
+
+    let currentObserver = null // 👈 guardamos referencia al observer activo
 
     function initHeroLogoObserver() {
       if (!heroMode) return
+
+      // Desconectar observer anterior si existe
+      if (currentObserver) {
+        currentObserver.disconnect()
+        currentObserver = null
+      }
 
       const heroLogo = document.getElementById('hero-logo')
       const logoText = document.getElementById('header-logo')
@@ -151,7 +159,7 @@ const {
 
       if (!heroLogo || !logoText || !logoFull) return
 
-      const observer = new IntersectionObserver(
+      currentObserver = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
             logoText.style.opacity = '1'
@@ -161,10 +169,13 @@ const {
             logoFull.style.opacity = '1'
           }
         },
-        { rootMargin: '-80px 0px 0px 0px', threshold: 0.1 },
+        {
+          rootMargin: '-80px 0px 0px 0px',
+          threshold: 0,
+        },
       )
 
-      observer.observe(heroLogo)
+      currentObserver.observe(heroLogo)
     }
 
     document.addEventListener('astro:page-load', initHeroLogoObserver)
