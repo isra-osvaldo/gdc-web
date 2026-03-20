@@ -3,15 +3,20 @@ import Footer from '../components/ui/Footer.astro'
 import Header from '../components/ui/Header.astro'
 import Layout from '../layouts/Layout.astro'
 import '../styles/global.css'
+
+// <link rel="preload" as="image" href="/bg-siembra.webp" />
 ---
 
 <Layout>
+  <link rel="preload" as="image" href="/bg-siembra.webp" slot="head" />
   <Header transparent={true} />
 
   <!-- HERO -->
   <section
+    transition:name="hero-bg"
+    transition:animate="fade"
     class="min-h-[100dvh] flex items-center -mt-20 pt-20 relative overflow-hidden"
-    style="background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%;"
+    style="background-color: #111111; background-image: url('/bg-siembra.webp'); background-size: cover; background-position: center 60%;"
   >
     <div
       class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"
@@ -41,9 +46,7 @@ import '../styles/global.css'
   <!-- VERSÍCULO — sin data-aos, está justo después del hero -->
   <section class="bg-[#333232] py-16">
     <div class="max-w-3xl mx-auto px-8 text-center">
-      <p
-        class="text-sm md:text-xl font-light text-white leading-relaxed"
-      >
+      <p class="text-sm md:text-xl font-light text-white leading-relaxed">
         "Cada um dê conforme determinou em seu coração, não com pesar ou por
         obrigação, pois Deus ama quem dá com alegria."
       </p>
