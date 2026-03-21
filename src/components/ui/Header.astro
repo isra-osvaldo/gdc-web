@@ -59,14 +59,18 @@ const {
 
     if (!btn || !menu || !header) return
 
+    // reset completo al navegar
+    header.classList.remove('header-menu-open', 'header-scrolled')
+    menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
+    menu.classList.add('max-h-0')
+    const isDarkInit = header.dataset.dark === 'true'
+    if (logoText) logoText.classList.toggle('invert', isDarkInit)
+    if (logoFull) logoFull.classList.toggle('invert', isDarkInit)
+
     function setLogosInvert(invert) {
       if (logoText) logoText.classList.toggle('invert', invert)
       if (logoFull) logoFull.classList.toggle('invert', invert)
     }
-
-    menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
-    menu.classList.add('max-h-0')
-    header.classList.remove('header-menu-open')
 
     const newBtn = btn.cloneNode(true)
     btn.parentNode.replaceChild(newBtn, btn)
@@ -83,7 +87,7 @@ const {
       if (willOpen) {
         menu.classList.remove('max-h-0')
         menu.classList.add('max-h-[500px]', 'pt-6', 'pb-8')
-        header.classList.add('header-scrolled', 'header-menu-open')
+        header.classList.add('header-menu-open')
         setLogosInvert(false)
       } else {
         menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
@@ -118,6 +122,16 @@ const {
       })
     })
   }
+
+  document.addEventListener('astro:before-preparation', () => {
+    const header = document.querySelector('#main-header')
+    const menu = document.querySelector('#mobile-menu')
+    if (header) header.classList.remove('header-menu-open', 'header-scrolled')
+    if (menu) {
+      menu.classList.remove('max-h-[500px]', 'pt-6', 'pb-8')
+      menu.classList.add('max-h-0')
+    }
+  })
 
   document.addEventListener('astro:page-load', initMobileMenu)
 </script>

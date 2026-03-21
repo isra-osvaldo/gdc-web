@@ -1,0 +1,82 @@
+---
+interface Props {
+  images: {
+    src: string
+    alt: string
+    label?: string
+  }[]
+  height?: string
+}
+
+const { images, height = '280px' } = Astro.props
+---
+
+<div class="accordion-gallery" style={`height: ${height}`}>
+  {
+    images.map((img, i) => (
+      <div class="acc-item">
+        <img src={img.src} alt={img.alt} />
+        {img.label && <span class="acc-label">{img.label}</span>}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .accordion-gallery {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .acc-item {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .acc-item:hover {
+    flex: 2;
+  }
+
+  .acc-item img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: auto;        /* ancho natural de la foto */
+    max-width: none;
+    display: block;
+    filter: brightness(0.72);
+    transition: filter 0.5s ease;
+    /* sin transform animado, sin scale, sin nada */
+  }
+
+  .acc-item:hover img {
+    filter: brightness(1);
+  }
+
+  .acc-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .acc-item:hover .acc-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

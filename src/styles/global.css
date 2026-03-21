@@ -24,10 +24,20 @@ html {
   backdrop-filter: blur(15px);
 }
 
-.header-menu-open {
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(24px);
+#main-header.header-menu-open {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(24px) !important;
 }
+
+#main-header.header-menu-open #header-logo,
+#main-header.header-menu-open #header-logo-full {
+  filter: none !important;
+}
+
+#main-header.header-menu-open #menu-btn {
+  color: white !important;
+}
+
 
 .libros {
   padding: 80px 20px;
@@ -215,4 +225,13 @@ html {
     color: #c9a84c !important;
     background: transparent !important;
   }
+}
+
+.header-menu-open #header-logo,
+.header-menu-open #header-logo-full {
+  filter: none !important;
+}
+
+.header-menu-open #menu-btn {
+  color: white !important;
 }

@@ -1,8 +1,10 @@
 ---
 import AnimateOnScroll from '../components/animation/AnimateOnScroll.astro'
+import ImageAccordion from '../components/animation/ImageAccordion.astro'
 import Footer from '../components/ui/Footer.astro'
 import Header from '../components/ui/Header.astro'
 import Layout from '../layouts/Layout.astro'
+import Particles from '../components/animation/Particles.astro'
 import '../styles/global.css'
 ---
 
@@ -10,7 +12,8 @@ import '../styles/global.css'
   <Header transparent={true} dark={true} />
 
   <!-- HERO -->
-  <section class="quem-somos-hero min-h-screen flex items-center -mt-20 pt-20">
+  <section class="quem-somos-hero min-h-screen flex items-center -mt-20 pt-20 relative overflow-hidden">
+    <Particles color="#c9a84c" count={20} />
     <div
       class="max-w-6xl mx-auto px-8 w-full grid lg:grid-cols-2 gap-12 items-center py-20 animate-blurred-fade-in"
     >
@@ -98,8 +101,70 @@ import '../styles/global.css'
     </div>
   </section>
 
+  <!-- ACCORDION BANNER — full width -->
+  <section class="w-full overflow-hidden">
+    <div class="hidden lg:block">
+      <ImageAccordion
+        height="280px"
+        images={[
+          {
+            src: '/miami/foto-iglesia-miami-1.webp',
+            alt: 'Igreja',
+            label: 'Worship',
+          },
+          {
+            src: '/miami/foto-iglesia-miami-2.webp',
+            alt: 'Igreja',
+            label: 'Comunidade',
+          },
+          {
+            src: '/miami/foto-iglesia-miami-3.webp',
+            alt: 'Igreja',
+            label: 'Jovens',
+          },
+          {
+            src: '/miami/foto-iglesia-miami-4.webp',
+            alt: 'Igreja',
+            label: 'Família',
+          },
+          {
+            src: '/miami/foto-iglesia-miami-5.webp',
+            alt: 'Igreja',
+            label: 'Missões',
+          },
+        ]}
+      />
+    </div>
+
+    <!-- Mobile: stack vertical -->
+    <div class="lg:hidden grid grid-cols-2">
+      {
+        [
+          { src: '/bento-images-quem-somos/foto-1.webp', label: 'Worship' },
+          {
+            src: '/bento-images-quem-somos/foto-iglesia.webp',
+            label: 'Comunidade',
+          },
+          { src: '/bento-images-quem-somos/foto-2.webp', label: 'Jovens' },
+          { src: '/bento-images-quem-somos/foto-3.webp', label: 'Família' },
+        ].map((img) => (
+          <div class="aspect-square overflow-hidden relative">
+            <img
+              src={img.src}
+              alt="Igreja"
+              class="w-full h-full object-cover brightness-75"
+            />
+            <span class="absolute bottom-4 left-4 text-white text-xs font-bold tracking-widest uppercase">
+              {img.label}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
   <!-- FRASE CENTRAL -->
-  <section class="quem-somos-quote py-24">
+  <!-- <section class="quem-somos-quote py-24">
     <AnimateOnScroll direction="up">
       <div class="max-w-4xl mx-auto px-8 text-center">
         <p
@@ -115,7 +180,7 @@ import '../styles/global.css'
         </p>
       </div>
     </AnimateOnScroll>
-  </section>
+  </section> -->
 
   <Footer />
 </Layout>
